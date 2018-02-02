@@ -1,0 +1,27 @@
+{
+  "name": "mmm-uvdata",
+  "version": "0.0.2",
+  "description": "UV Data",
+  "main": "MMM-UVData.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwootton/MMM-UVData.git"
+  },
+  "keywords": [
+    "Magic",
+    "Mirror",
+    "Module"
+  ],
+  "author": "NJW",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nwootton/MMM-UVData/issues"
+  },
+  "homepage": "https://github.com/nwootton/MMM-UVData#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}
