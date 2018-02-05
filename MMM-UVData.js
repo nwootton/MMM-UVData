@@ -24,7 +24,7 @@ Module.register("MMM-UVData", {
         lng:        '',     // Lng
         api_key:    '',     // OpenUV API Key
         alt:        '',     // Altitude
-        header:     'UV Index with Ozone Level',
+        header:     'UV Index',
 
         showOzone:  true,   //DIsplay Ozone measurements in Dobson Units (du)
 
@@ -43,6 +43,10 @@ Module.register("MMM-UVData", {
 
     //Define header for module.
     getHeader: function() {
+        if (this.config.showOzone) {
+            this.config.header = "UV Index with Ozone Info"
+        }
+
         return this.config.header;
     },
 
@@ -202,6 +206,7 @@ Module.register("MMM-UVData", {
                 OzoneTimeCell.innerHTML = oOzoneDate;
                 OzoneTimeCell.className = "time";
                 ozonerow.appendChild(OzoneTimeCell);
+
             }
 
         } else {
