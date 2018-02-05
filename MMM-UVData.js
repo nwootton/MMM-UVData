@@ -154,22 +154,22 @@ Module.register("MMM-UVData", {
             UVMaxCell.innerHTML = myUV.uv_max;
 
                 if ((myUV.uv_max >=0) && (myUV.uv_max <=3)) {
-                    UVMaxCell.className = "bright low";
+                    UVMaxCell.className = "bright status low";
                 }
                 else if ((myUV.uv_max >=3) && (myUV.uv_max <=6)) {
-                    UVMaxCell.className = "bright moderate";
+                    UVMaxCell.className = "bright status moderate";
                 }
                 else if ((myUV.uv_max >=6) && (myUV.uv_max <=8)) {
-                    UVMaxCell.className = "bright high";
+                    UVMaxCell.className = "bright status high";
                 }
                 else if ((myUV.uv_max >=8) && (myUV.uv_max <=11)) {
-                    UVMaxCell.className = "bright veryhigh";
+                    UVMaxCell.className = "bright status veryhigh";
                 }
                 else if (myUV.uv_max >=11) {
-                    UVMaxCell.className = "bright extreme";
+                    UVMaxCell.className = "bright status extreme";
                 }
                 else {
-                    UVMaxCell.className = "bright ";
+                    UVMaxCell.className = "bright";
                 }
                 uvrow.appendChild(UVMaxCell);
 
