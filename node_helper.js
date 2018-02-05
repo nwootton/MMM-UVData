@@ -15,25 +15,25 @@ module.exports = NodeHelper.create({
   },
 
 
-	/* getTimetable()
+	/* getUVData()
 	 * Requests new data from OpenUV.io
 	 * Sends data back via socket on succesfull response.
 	 */
-  getTimetable: function(url) {
+  getUVData: function(url) {
   		var self = this;
   		var retry = true;
 
       request({url:url, method: 'GET'}, function(error, response, body) {
         if(!error && response.statusCode == 200) {
-          self.sendSocketNotification('TRAIN_DATA', {'data': JSON.parse(body), 'url': url});
+          self.sendSocketNotification('UV_DATA', {'data': JSON.parse(body), 'url': url});
         }
       });
   	},
 
   //Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
-    if (notification === 'GET_TRAININFO') {
-      this.getTimetable(payload.url);
+    if (notification === 'GET_UVINFO') {
+      this.getUVData(payload.url);
     }
   }
 
