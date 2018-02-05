@@ -19,11 +19,19 @@ module.exports = NodeHelper.create({
 	 * Requests new data from OpenUV.io
 	 * Sends data back via socket on succesfull response.
 	 */
-  getUVData: function(url) {
+  getUVData: function(url,api_key) {
   		var self = this;
   		var retry = true;
 
-      request({url:url, method: 'GET'}, function(error, response, body) {
+      var options = {
+        url: url,
+        headers: {
+          'x-access-token': api_key
+        },
+        method: 'GET'
+      };
+
+      request(options, function(error, response, body) {
         if(!error && response.statusCode == 200) {
           self.sendSocketNotification('UV_DATA', {'data': JSON.parse(body), 'url': url});
         }
@@ -33,7 +41,7 @@ module.exports = NodeHelper.create({
   //Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
     if (notification === 'GET_UVINFO') {
-      this.getUVData(payload.url);
+      this.getUVData(payload.url,payload.api_key);
     }
   }
 
