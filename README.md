@@ -1,9 +1,9 @@
-# MMM-UVData #
+#MMM-UVData
 Additional Module for MagicMirror²  https://github.com/MichMich/MagicMirror
 
 Under Beta
 
-#Module: UVData#
+#Module: UVData
 This module displays current and max UV levels for a given latitude & longditude from https://www.openuv.io
 
 ![](./images/Current_version.png)
@@ -49,11 +49,11 @@ Please see the OpenUV API documentation [here](https://www.openuv.io/)
 |`alt`|Numeric. Altitude in metres of the location for the UV measurement. If NOT supplied the API will assume 0m (sea level).<br><br>**Example:** '22.4'|
 |`showOzone`|Boolean. Display Ozone levels measured in Dobson Units (du). <br><br>**Default:** true|
 
-## OpenUV API ##
+##OpenUV API##
 
 To setup an account for the Api_key sign up for an account here: https://www.openuv.io/
 
-## Troubleshooting ##
+##Troubleshooting##
 
 If there are issue getting data out of the module I'm ALWAYS going to ask the following:
 
