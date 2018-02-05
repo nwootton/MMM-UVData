@@ -26,10 +26,10 @@ modules: [
 		position: 		'bottom_left',
 		header:			'UV Levels For Today',		//Optional - delete this line to turn OFF the header completely
 		config: {
-			lat: 	    'SUR', 		// Latitude
-			lng: 	    '', 		// Longditude
-			alt: 		'', 		// Optional - altitude in m. If not supplied will default to 0m or sea level
-			api_key: 	''   	    //OpenUV API access key
+			lat: 	    '51.508', 		// Latitude
+			lng: 	    '-0.1617', 		// Longditude
+			api_key: 	'',   	    	// OpenUV API access key
+			alt: 		'', 			// Optional - altitude in m. If not supplied will default to 0m or sea level
 		}
 	},
 ]
