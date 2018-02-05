@@ -45,6 +45,7 @@ Please see the OpenUV API documentation [here](https://www.openuv.io/)
 |Option|Optional Settings Description|
 |---|---|
 |`alt`|Numeric. Altitude in metres of the location for the UV measurement. If NOT supplied the API will assume 0m (sea level).<br><br>**Example:** '22.4'|
+|`showOzone`|Boolean. Display Ozone levels measured in Dobson Units (du). <br><br>**Default:** true|
 
 ## OpenUV API
 
