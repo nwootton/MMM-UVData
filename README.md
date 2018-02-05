@@ -29,7 +29,7 @@ modules: [
 			lat: 	    '51.508', 		// Latitude
 			lng: 	    '-0.1617', 		// Longditude
 			api_key: 	'',   	    	// OpenUV API access key
-			alt: 		'', 			// Optional - altitude in m. If not supplied will default to 0m or sea level
+			alt: 		'' 			// Optional - altitude in m. If not supplied will default to 0m or sea level
 		}
 	},
 ]
