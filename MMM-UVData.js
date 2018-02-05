@@ -24,6 +24,9 @@ Module.register("MMM-UVData", {
         lng:        '',     // Lng
         api_key:    '',     // OpenUV API Key
         alt:        '',     // Altitude
+        header:     'UV Index with Ozone Level',
+
+        showOzone:  true,   //DIsplay Ozone measurements in Dobson Units (du)
 
         debug: false
     },
@@ -99,10 +102,6 @@ Module.register("MMM-UVData", {
             return wrapper;
         }
 
-        if (this.config.debug) {
-            Log.error(typeof this.UVData.result);
-        }
-
         // *** Start Building Table
         var table = document.createElement("table");
         table.className = "small";
@@ -141,7 +140,9 @@ Module.register("MMM-UVData", {
 
                 //Time reported
                 var UVTimeCell = document.createElement("td");
-                UVTimeCell.innerHTML = myUV.uv_time;
+                oUVDate = new Date (Date.parse(myUV.uv_time));
+
+                UVTimeCell.innerHTML = oUVDate;
                 UVTimeCell.className = "time";
                 uvrow.appendChild(UVTimeCell);
 
@@ -177,26 +178,31 @@ Module.register("MMM-UVData", {
 
             //Time Max UV reported
             var UVMaxTimeCell = document.createElement("td");
-            UVMaxTimeCell.innerHTML = myUV.uv_max_time;
+            oUVMaxDate = new Date (Date.parse(myUV.uv_max_time));
+            UVMaxTimeCell.innerHTML = oUVMaxDate;
             UVMaxTimeCell.className = "time";
             maxrow.appendChild(UVMaxTimeCell);
 
-            //Create row for Ozone
-            var ozonerow = document.createElement("tr");
-            table.appendChild(ozonerow);
 
-            //Ozone Values cell
-            var OzoneCell = document.createElement("td");
-            OzoneCell.innerHTML = myUV.ozone;
-            OzoneCell.className = "bright status";
-            ozonerow.appendChild(OzoneCell);
+            //If required, show ozone levels
+            if (this.config.showOzone) {
+                //Create row for Ozone
+                var ozonerow = document.createElement("tr");
+                table.appendChild(ozonerow);
 
-            //Time Ozone reported
-            var OzoneTimeCell = document.createElement("td");
-            OzoneTimeCell.innerHTML = myUV.ozone_time;
-            OzoneTimeCell.className = "time";
-            ozonerow.appendChild(OzoneTimeCell);
+                //Ozone Values cell
+                var OzoneCell = document.createElement("td");
+                OzoneCell.innerHTML = myUV.ozone + " du";
+                OzoneCell.className = "bright status";
+                ozonerow.appendChild(OzoneCell);
 
+                //Time Ozone reported
+                var OzoneTimeCell = document.createElement("td");
+                oOzoneDate = new Date (Date.parse(myUV.ozone_time));
+                OzoneTimeCell.innerHTML = oOzoneDate;
+                OzoneTimeCell.className = "time";
+                ozonerow.appendChild(OzoneTimeCell);
+            }
 
         } else {
             var row1 = document.createElement("tr");
