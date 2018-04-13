@@ -75,7 +75,9 @@ Module.register("MMM-UVData", {
 
     // updateUVInfo
     updateUVInfo: function(self) {
-        self.sendSocketNotification('GET_UVINFO', { 'url': this.url, 'api_key': this.api_key });
+        if (this.hidden != true) {
+            self.sendSocketNotification('GET_UVINFO', { 'url': this.url, 'api_key': this.api_key });
+        }
     },
 
     // Override dom generator.
