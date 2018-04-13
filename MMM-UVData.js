@@ -44,10 +44,21 @@ Module.register("MMM-UVData", {
     //Define header for module.
     getHeader: function() {
         if (this.config.showOzone) {
-            this.config.header = "UV Index with Ozone Info"
+            this.config.header = this.translate("HEADER_PLUS");
+        }
+        else {
+            this.translate("HEADER");
         }
 
         return this.config.header;
+    },
+
+    //Get translations
+    getTranslations: function() {
+        return {
+                en: "translations/en.json",
+                de: "translations/de.json"
+        }
     },
 
     // Define start sequence.
@@ -80,30 +91,67 @@ Module.register("MMM-UVData", {
         }
     },
 
+    //format date output
+    formatDate: function(formatDate, formatString) {
+        if(formatDate instanceof Date) {
+            var months = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+            var yyyy = formatDate.getFullYear();
+            var yy = yyyy.toString().substring(2);
+            var m = formatDate.getMonth();
+            var mm = m < 10 ? "0" + m : m;
+            var mmm = months[m];
+            var d = formatDate.getDate();
+            var dd = d < 10 ? "0" + d : d;
+            
+            var h = formatDate.getHours();
+            var hh = h < 10 ? "0" + h : h;
+            var n = formatDate.getMinutes();
+            var nn = n < 10 ? "0" + n : n;
+            var s = formatDate.getSeconds();
+            var ss = s < 10 ? "0" + s : s;
+            formatString = formatString.replace(/yyyy/i, yyyy);
+            formatString = formatString.replace(/yy/i, yy);
+            formatString = formatString.replace(/mmm/i, mmm);
+            formatString = formatString.replace(/mm/i, mm);
+            formatString = formatString.replace(/m/i, m);
+            formatString = formatString.replace(/dd/i, dd);
+            formatString = formatString.replace(/d/i, d);
+            formatString = formatString.replace(/hh/i, hh);
+            formatString = formatString.replace(/h/i, h);
+            formatString = formatString.replace(/nn/i, nn);
+            formatString = formatString.replace(/n/i, n);
+            formatString = formatString.replace(/ss/i, ss);
+            formatString = formatString.replace(/s/i, s);
+            return formatString;
+        } else {
+            return "";
+        }
+    },
+
     // Override dom generator.
     getDom: function() {
         var wrapper = document.createElement("div");
 
         if (this.config.lat === "") {
-            wrapper.innerHTML = "Please set the Latitude: " + this.lat + ".";
+            wrapper.innerHTML = this.translate("SET_LAT") + ": " + this.lat + ".";
             wrapper.className = "dimmed light small";
             return wrapper;
         }
 
         if (this.config.lng === "") {
-            wrapper.innerHTML = "Please set the Longditude: " + this.lng + ".";
+            wrapper.innerHTML = this.translate("SET_LON") + ": " + this.lng + ".";
             wrapper.className = "dimmed light small";
             return wrapper;
         }
 
         if (this.config.api_key === "") {
-            wrapper.innerHTML = "Please set the API key: " + this.api_key + ".";
+            wrapper.innerHTML = this.translate("SET_KEY") + ": " + this.api_key + ".";
             wrapper.className = "dimmed light small";
             return wrapper;
         }
 
         if (!this.loaded) {
-            wrapper.innerHTML = "Loading UV data ...";
+            wrapper.innerHTML = this.translate("LOAD_MSG");
             wrapper.className = "dimmed light small";
             return wrapper;
         }
@@ -148,7 +196,8 @@ Module.register("MMM-UVData", {
                 var UVTimeCell = document.createElement("td");
                 oUVDate = new Date (Date.parse(myUV.uv_time));
 
-                UVTimeCell.innerHTML = oUVDate;
+
+                UVTimeCell.innerHTML = this.translate("CURRENT_UV") + " " + this.formatDate(oUVDate, "hh:nn");
                 UVTimeCell.className = "time";
                 uvrow.appendChild(UVTimeCell);
 
@@ -185,7 +234,7 @@ Module.register("MMM-UVData", {
             //Time Max UV reported
             var UVMaxTimeCell = document.createElement("td");
             oUVMaxDate = new Date (Date.parse(myUV.uv_max_time));
-            UVMaxTimeCell.innerHTML = oUVMaxDate;
+            UVMaxTimeCell.innerHTML = this.translate("MAX_UV") + " " + this.formatDate(oUVMaxDate, "hh:nn");
             UVMaxTimeCell.className = "time";
             maxrow.appendChild(UVMaxTimeCell);
 
@@ -205,7 +254,7 @@ Module.register("MMM-UVData", {
                 //Time Ozone reported
                 var OzoneTimeCell = document.createElement("td");
                 oOzoneDate = new Date (Date.parse(myUV.ozone_time));
-                OzoneTimeCell.innerHTML = oOzoneDate;
+                OzoneTimeCell.innerHTML = this.translate("OZONE") + " " + this.formatDate(oOzoneDate, "hh:nn");
                 OzoneTimeCell.className = "time";
                 ozonerow.appendChild(OzoneTimeCell);
 

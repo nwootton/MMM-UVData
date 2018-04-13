@@ -1,0 +1,11 @@
+{
+    "HEADER": "UV-Index",
+    "HEADER_PLUS" : "UV-Index mit Ozon-Info",
+    "SET_LAT": "Bitte stellen Sie den Breitengrad ein",
+    "SET_LON": "Bitte geben Sie den Längengrad ein",
+    "SET_KEY": "Bitte legen Sie den API-Schlüssel fest",
+    "LOAD_MSG": "Laden von UV-Daten ...",
+    "CURRENT_UV": "UV-Pegel aufgezeichnet bei",
+    "MAX_UV": "Maximaler UV-Wert bei",
+    "OZONE": "Ozongehalt aufgezeichnet bei"
+  }

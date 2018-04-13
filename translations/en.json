@@ -1,0 +1,11 @@
+{
+    "HEADER": "UV Index",
+    "HEADER_PLUS" : "UV Index with Ozone Info",
+    "SET_LAT": "Please set the Latitude",
+    "SET_LON": "Please set the Longditude",
+    "SET_KEY": "Please set the API key",
+    "LOAD_MSG": "Loading UV data ...",
+    "CURRENT_UV": "UV level recorded at",
+    "MAX_UV": "Max. UV level at",
+    "OZONE": "Ozone level recorded at"
+  }
