@@ -8,7 +8,7 @@
  * MIT Licensed.
  */
 
-Module.register("MMM-UVData", {
+Module.register('MMM-UVData', {
 
     // Define module defaults
     defaults: {
@@ -33,21 +33,21 @@ Module.register("MMM-UVData", {
 
     // Define required scripts.
     getStyles: function() {
-        return ["uvdata.css", "font-awesome.css"];
+        return ['uvdata.css', 'font-awesome.css'];
     },
 
     // Define required scripts.
     getScripts: function() {
-        return ["moment.js", this.file('titleCase.js')];
+        return ['moment.js', this.file('titleCase.js')];
     },
 
     //Define header for module.
     getHeader: function() {
         if (this.config.showOzone) {
-            this.config.header = this.translate("HEADER_PLUS");
+            this.config.header = this.translate('HEADER_PLUS');
         }
         else {
-            this.translate("HEADER");
+            this.translate('HEADER');
         }
 
         return this.config.header;
@@ -56,14 +56,14 @@ Module.register("MMM-UVData", {
     //Get translations
     getTranslations: function() {
         return {
-                en: "translations/en.json",
-                de: "translations/de.json"
-        }
+            en: 'translations/en.json',
+            de: 'translations/de.json'
+        };
     },
 
     // Define start sequence.
     start: function() {
-        Log.info("Starting module: " + this.name);
+        Log.info('Starting module: ' + this.name);
 
         // Set locale.
         moment.locale(config.language);
@@ -94,21 +94,21 @@ Module.register("MMM-UVData", {
     //format date output
     formatDate: function(formatDate, formatString) {
         if(formatDate instanceof Date) {
-            var months = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+            var months = new Array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
             var yyyy = formatDate.getFullYear();
             var yy = yyyy.toString().substring(2);
             var m = formatDate.getMonth();
-            var mm = m < 10 ? "0" + m : m;
+            var mm = m < 10 ? '0' + m : m;
             var mmm = months[m];
             var d = formatDate.getDate();
-            var dd = d < 10 ? "0" + d : d;
+            var dd = d < 10 ? '0' + d : d;
             
             var h = formatDate.getHours();
-            var hh = h < 10 ? "0" + h : h;
+            var hh = h < 10 ? '0' + h : h;
             var n = formatDate.getMinutes();
-            var nn = n < 10 ? "0" + n : n;
+            var nn = n < 10 ? '0' + n : n;
             var s = formatDate.getSeconds();
-            var ss = s < 10 ? "0" + s : s;
+            var ss = s < 10 ? '0' + s : s;
             formatString = formatString.replace(/yyyy/i, yyyy);
             formatString = formatString.replace(/yy/i, yy);
             formatString = formatString.replace(/mmm/i, mmm);
@@ -124,157 +124,157 @@ Module.register("MMM-UVData", {
             formatString = formatString.replace(/s/i, s);
             return formatString;
         } else {
-            return "";
+            return '';
         }
     },
 
     // Override dom generator.
     getDom: function() {
-        var wrapper = document.createElement("div");
+        var wrapper = document.createElement('div');
 
-        if (this.config.lat === "") {
-            wrapper.innerHTML = this.translate("SET_LAT") + ": " + this.lat + ".";
-            wrapper.className = "dimmed light small";
+        if (this.config.lat === '') {
+            wrapper.innerHTML = this.translate('SET_LAT') + ': ' + this.lat + '.';
+            wrapper.className = 'dimmed light small';
             return wrapper;
         }
 
-        if (this.config.lng === "") {
-            wrapper.innerHTML = this.translate("SET_LON") + ": " + this.lng + ".";
-            wrapper.className = "dimmed light small";
+        if (this.config.lng === '') {
+            wrapper.innerHTML = this.translate('SET_LON') + ': ' + this.lng + '.';
+            wrapper.className = 'dimmed light small';
             return wrapper;
         }
 
-        if (this.config.api_key === "") {
-            wrapper.innerHTML = this.translate("SET_KEY") + ": " + this.api_key + ".";
-            wrapper.className = "dimmed light small";
+        if (this.config.api_key === '') {
+            wrapper.innerHTML = this.translate('SET_KEY') + ': ' + this.api_key + '.';
+            wrapper.className = 'dimmed light small';
             return wrapper;
         }
 
         if (!this.loaded) {
-            wrapper.innerHTML = this.translate("LOAD_MSG");
-            wrapper.className = "dimmed light small";
+            wrapper.innerHTML = this.translate('LOAD_MSG');
+            wrapper.className = 'dimmed light small';
             return wrapper;
         }
 
         // *** Start Building Table
-        var table = document.createElement("table");
-        table.className = "small";
+        var table = document.createElement('table');
+        table.className = 'small';
 
         //With data returned
         if (typeof this.UVData.result !== 'undefined' && this.UVData.result !== null) {
             var myUV = this.UVData.result;
 
             //Create row for Current UV
-            var uvrow = document.createElement("tr");
+            var uvrow = document.createElement('tr');
             table.appendChild(uvrow);
 
             //UV cell
-            var UVCurrentCell = document.createElement("td");
-                UVCurrentCell.innerHTML = myUV.uv_current;
+            var UVCurrentCell = document.createElement('td');
+            UVCurrentCell.innerHTML = myUV.uv_current;
 
-                if ((myUV.uv_current >=0) && (myUV.uv_current <=3)) {
-                    UVCurrentCell.className = "bright status low";
-                }
-                else if ((myUV.uv_current >=3) && (myUV.uv_current <=6)) {
-                    UVCurrentCell.className = "bright status moderate";
-                }
-                else if ((myUV.uv_current >=6) && (myUV.uv_current <=8)) {
-                    UVCurrentCell.className = "bright status high";
-                }
-                else if ((myUV.uv_current >=8) && (myUV.uv_current <=11)) {
-                    UVCurrentCell.className = "bright status veryhigh";
-                }
-                else if (myUV.uv_current >=11) {
-                    UVCurrentCell.className = "bright status extreme";
-                }
-                else {
-                    UVCurrentCell.className = "bright ";
-                }
-                uvrow.appendChild(UVCurrentCell);
+            if ((myUV.uv_current >=0) && (myUV.uv_current <=3)) {
+                UVCurrentCell.className = 'bright status low';
+            }
+            else if ((myUV.uv_current >=3) && (myUV.uv_current <=6)) {
+                UVCurrentCell.className = 'bright status moderate';
+            }
+            else if ((myUV.uv_current >=6) && (myUV.uv_current <=8)) {
+                UVCurrentCell.className = 'bright status high';
+            }
+            else if ((myUV.uv_current >=8) && (myUV.uv_current <=11)) {
+                UVCurrentCell.className = 'bright status veryhigh';
+            }
+            else if (myUV.uv_current >=11) {
+                UVCurrentCell.className = 'bright status extreme';
+            }
+            else {
+                UVCurrentCell.className = 'bright ';
+            }
+            uvrow.appendChild(UVCurrentCell);
 
-                //Time reported
-                var UVTimeCell = document.createElement("td");
-                oUVDate = new Date (Date.parse(myUV.uv_time));
+            //Time reported
+            var UVTimeCell = document.createElement('td');
+            var oUVDate = new Date (Date.parse(myUV.uv_time));
 
 
-                UVTimeCell.innerHTML = this.translate("CURRENT_UV") + " " + this.formatDate(oUVDate, "hh:nn");
-                UVTimeCell.className = "time";
-                uvrow.appendChild(UVTimeCell);
+            UVTimeCell.innerHTML = this.translate('CURRENT_UV') + ' ' + this.formatDate(oUVDate, 'hh:nn');
+            UVTimeCell.className = 'time';
+            uvrow.appendChild(UVTimeCell);
 
 
             //Create row for Max UV
-            var maxrow = document.createElement("tr");
+            var maxrow = document.createElement('tr');
             table.appendChild(maxrow);
 
             //UV Max Values cell
-            var UVMaxCell = document.createElement("td");
+            var UVMaxCell = document.createElement('td');
             UVMaxCell.innerHTML = myUV.uv_max;
 
-                if ((myUV.uv_max >=0) && (myUV.uv_max <=3)) {
-                    UVMaxCell.className = "bright status low";
-                }
-                else if ((myUV.uv_max >=3) && (myUV.uv_max <=6)) {
-                    UVMaxCell.className = "bright status moderate";
-                }
-                else if ((myUV.uv_max >=6) && (myUV.uv_max <=8)) {
-                    UVMaxCell.className = "bright status high";
-                }
-                else if ((myUV.uv_max >=8) && (myUV.uv_max <=11)) {
-                    UVMaxCell.className = "bright status veryhigh";
-                }
-                else if (myUV.uv_max >=11) {
-                    UVMaxCell.className = "bright status extreme";
-                }
-                else {
-                    UVMaxCell.className = "bright";
-                }
-                maxrow.appendChild(UVMaxCell);
+            if ((myUV.uv_max >=0) && (myUV.uv_max <=3)) {
+                UVMaxCell.className = 'bright status low';
+            }
+            else if ((myUV.uv_max >=3) && (myUV.uv_max <=6)) {
+                UVMaxCell.className = 'bright status moderate';
+            }
+            else if ((myUV.uv_max >=6) && (myUV.uv_max <=8)) {
+                UVMaxCell.className = 'bright status high';
+            }
+            else if ((myUV.uv_max >=8) && (myUV.uv_max <=11)) {
+                UVMaxCell.className = 'bright status veryhigh';
+            }
+            else if (myUV.uv_max >=11) {
+                UVMaxCell.className = 'bright status extreme';
+            }
+            else {
+                UVMaxCell.className = 'bright';
+            }
+            maxrow.appendChild(UVMaxCell);
 
 
             //Time Max UV reported
-            var UVMaxTimeCell = document.createElement("td");
-            oUVMaxDate = new Date (Date.parse(myUV.uv_max_time));
-            UVMaxTimeCell.innerHTML = this.translate("MAX_UV") + " " + this.formatDate(oUVMaxDate, "hh:nn");
-            UVMaxTimeCell.className = "time";
+            var UVMaxTimeCell = document.createElement('td');
+            var oUVMaxDate = new Date (Date.parse(myUV.uv_max_time));
+            UVMaxTimeCell.innerHTML = this.translate('MAX_UV') + ' ' + this.formatDate(oUVMaxDate, 'hh:nn');
+            UVMaxTimeCell.className = 'time';
             maxrow.appendChild(UVMaxTimeCell);
 
 
             //If required, show ozone levels
             if (this.config.showOzone) {
                 //Create row for Ozone
-                var ozonerow = document.createElement("tr");
+                var ozonerow = document.createElement('tr');
                 table.appendChild(ozonerow);
 
                 //Ozone Values cell
-                var OzoneCell = document.createElement("td");
-                OzoneCell.innerHTML = myUV.ozone + " du";
-                OzoneCell.className = "bright status";
+                var OzoneCell = document.createElement('td');
+                OzoneCell.innerHTML = myUV.ozone + ' du';
+                OzoneCell.className = 'bright status';
                 ozonerow.appendChild(OzoneCell);
 
                 //Time Ozone reported
-                var OzoneTimeCell = document.createElement("td");
-                oOzoneDate = new Date (Date.parse(myUV.ozone_time));
-                OzoneTimeCell.innerHTML = this.translate("OZONE") + " " + this.formatDate(oOzoneDate, "hh:nn");
-                OzoneTimeCell.className = "time";
+                var OzoneTimeCell = document.createElement('td');
+                var oOzoneDate = new Date (Date.parse(myUV.ozone_time));
+                OzoneTimeCell.innerHTML = this.translate('OZONE') + ' ' + this.formatDate(oOzoneDate, 'hh:nn');
+                OzoneTimeCell.className = 'time';
                 ozonerow.appendChild(OzoneTimeCell);
 
             }
 
         } else {
-            var row1 = document.createElement("tr");
+            var row1 = document.createElement('tr');
             table.appendChild(row1);
 
-            var messageCell = document.createElement("td");
-            messageCell.innerHTML = " " + this.UVData.message + " ";
-            messageCell.className = "bright";
+            var messageCell = document.createElement('td');
+            messageCell.innerHTML = ' ' + this.UVData.message + ' ';
+            messageCell.className = 'bright';
             row1.appendChild(messageCell);
 
-            var row2 = document.createElement("tr");
+            var row2 = document.createElement('tr');
             table.appendChild(row2);
 
-            var timeCell = document.createElement("td");
-            timeCell.innerHTML = " " + this.UVData.timestamp + " ";
-            timeCell.className = "bright";
+            var timeCell = document.createElement('td');
+            timeCell.innerHTML = ' ' + this.UVData.timestamp + ' ';
+            timeCell.className = 'bright';
             row2.appendChild(timeCell);
         }
 
@@ -327,31 +327,31 @@ Module.register("MMM-UVData", {
 
                 } else {
                     //No uv info returned - set message
-                    this.UVData.message = "No UV info found";
+                    this.UVData.message = 'No UV info found';
                     if (this.config.debug) {
-                        Log.error("=======LEVEL 3=========");
+                        Log.error('=======LEVEL 3=========');
                         Log.error(this.UVData);
-                        Log.error("^^^^^^^^^^^^^^^^^^^^^^^");
+                        Log.error('^^^^^^^^^^^^^^^^^^^^^^^');
                     }
                 }
 
             } else {
                 //No info returned - set message
-                this.UVData.message = "No info about the UV levels returned";
+                this.UVData.message = 'No info about the UV levels returned';
                 if (this.config.debug) {
-                    Log.error("=======LEVEL 2=========");
+                    Log.error('=======LEVEL 2=========');
                     Log.error(this.UVData);
-                    Log.error("^^^^^^^^^^^^^^^^^^^^^^^");
+                    Log.error('^^^^^^^^^^^^^^^^^^^^^^^');
                 }
             }
 
         } else {
             //No data returned - set message
-            this.UVData.message = "No data returned";
+            this.UVData.message = 'No data returned';
             if (this.config.debug) {
-                Log.error("=======LEVEL 1=========");
+                Log.error('=======LEVEL 1=========');
                 Log.error(this.UVData);
-                Log.error("^^^^^^^^^^^^^^^^^^^^^^^");
+                Log.error('^^^^^^^^^^^^^^^^^^^^^^^');
             }
         }
 
@@ -366,10 +366,10 @@ Module.register("MMM-UVData", {
      * return String - URL params.
      */
     getParams: function() {
-        var params = "?";
-        params += "lat=" + this.config.lat;
-        params += "&lng=" + this.config.lng;
-        params += "&altlat=" + this.config.alt;
+        var params = '?';
+        params += 'lat=' + this.config.lat;
+        params += '&lng=' + this.config.lng;
+        params += '&altlat=' + this.config.alt;
 
         if (this.config.debug) {
             Log.warn(params);
@@ -385,7 +385,7 @@ Module.register("MMM-UVData", {
      */
     scheduleUpdate: function(delay) {
         var nextLoad = this.config.updateInterval;
-        if (typeof delay !== "undefined" && delay >= 0) {
+        if (typeof delay !== 'undefined' && delay >= 0) {
             nextLoad = delay;
         }
 
