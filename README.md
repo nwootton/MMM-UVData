@@ -1,7 +1,9 @@
 # MMM-UVData #
 Additional Module for MagicMirror²  https://github.com/MichMich/MagicMirror
 
-Initial release
+**Please note** - I no longer run a MagicMirror, so this module is no-longer supported. Feel free to fork and update as necessary.
+
+**API has changed** - Please note that the API now charges.
 
 # Module: UVData #
 This module displays current and max UV levels for a given latitude & longditude from https://www.openuv.io
